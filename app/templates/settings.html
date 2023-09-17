@@ -2,4 +2,333 @@
 {% block title %}settings{% endblock%} 
 {% block content %}
     
+<div>
+    <div class="xl:pl-72">
+      <main>
+        <header class="border-b border-white/5">
+          <!-- Secondary navigation -->
+          <nav class="flex overflow-x-auto py-4">
+            <ul
+              role="list"
+              class="flex min-w-full flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8"
+            >
+              <li>
+                <button
+                  onclick="openSideBar()"
+                  type="button"
+                  class="-m-2.5 p-2.5 text-white xl:hidden"
+                >
+                  <span class="sr-only">Open sidebar</span>
+                  <svg
+                    class="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </li>
+              <li>
+                <a href="#" class="text-indigo-400">Account</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+  
+        <!-- Settings forms -->
+        <div class="divide-y divide-white/5">
+          <div
+            class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8"
+          >
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-white">
+                Personal Information
+              </h2>
+              <p class="mt-1 text-sm leading-6 text-gray-400">
+                Use a permanent address where you can receive mail.
+              </p>
+            </div>
+  
+            <form class="md:col-span-2" action="#" method="POST">
+              <div
+                class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6"
+              >
+                <div class="col-span-full flex items-center gap-x-8">
+                  <img
+                    id="avatarImage"
+                    src="https://placehold.co/80x80"
+                    alt="Avatar Picture"
+                    class="h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover"
+                  />
+                  <div>
+                    <input
+                      type="file"
+                      id="filePicker"
+                      accept="image/*"
+                      style="display: none"
+                    />
+                    <input
+                      type="hidden"
+                      value=""
+                      id="base64Image"
+                      name="base64_image"
+                    />
+                    <button
+                      type="button"
+                      onclick=""
+                      class="rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20"
+                    >
+                      Change avatar
+                    </button>
+                    <p class="mt-2 text-xs leading-5 text-gray-400">
+                      JPG, GIF or PNG. 1MB max.
+                    </p>
+                  </div>
+                </div>
+  
+                <div class="sm:col-span-3">
+                  <label
+                    for="firstname"
+                    class="block text-sm font-medium leading-6 text-white"
+                    >First name</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      type="text"
+                      name="firstname"
+                      id="firstname"
+                      autocomplete="given-name"
+                      value=""
+                      class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+  
+                <div class="sm:col-span-3">
+                  <label
+                    for="lastname"
+                    class="block text-sm font-medium leading-6 text-white"
+                    >Last name</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      type="text"
+                      name="lastname"
+                      id="lastname"
+                      autocomplete="family-name"
+                      value=""
+                      class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+  
+                <div class="sm:col-span-3">
+                  <label
+                    for="dob"
+                    class="block text-sm font-medium leading-6 text-white"
+                    >D.O.B</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      type="date"
+                      name="dob"
+                      id="dob"
+                      autocomplete="family-name"
+                      value=""
+                      class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+  
+                <div class="col-span-full">
+                  <label
+                    for="bio"
+                    class="block text-sm font-medium leading-6 text-white"
+                    >Bio</label
+                  >
+  
+                  <div class="mt-2">
+                    <textarea
+                      id="bio"
+                      name="bio"
+                      rows="4"
+                      class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    >
+            </textarea
+                    >
+                  </div>
+                </div>
+  
+                <div class="col-span-full">
+                  <label
+                    for="email"
+                    class="block text-sm font-medium leading-6 text-white"
+                    >Email address</label
+                  >
+  
+                  <div class="mt-2">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autocomplete="email"
+                      value=""
+                      readonly
+                      class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+  
+                <div class="col-span-full">
+                  <label
+                    for="username"
+                    class="block text-sm font-medium leading-6 text-white"
+                    >Username</label
+                  >
+                  <div class="mt-2">
+                    <div
+                      class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
+                    >
+                      <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        autocomplete="username"
+                        value=""
+                        readonly
+                        class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
+                        placeholder="janesmith"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="mt-8 flex">
+                <button
+                  type="submit"
+                  class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+  
+          <div
+            class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8"
+          >
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-white">
+                Change password
+              </h2>
+              <p class="mt-1 text-sm leading-6 text-gray-400">
+                Update your password associated with your account.
+              </p>
+            </div>
+  
+            <form class="md:col-span-2">
+              <div
+                class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6"
+              >
+                <div class="col-span-full">
+                  <label
+                    for="current-password"
+                    class="block text-sm font-medium leading-6 text-white"
+                    >Current password</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      id="current-password"
+                      name="current_password"
+                      type="password"
+                      autocomplete="current-password"
+                      class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+  
+                <div class="col-span-full">
+                  <label
+                    for="new-password"
+                    class="block text-sm font-medium leading-6 text-white"
+                    >New password</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      id="new-password"
+                      name="new_password"
+                      type="password"
+                      autocomplete="new-password"
+                      class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+  
+                <div class="col-span-full">
+                  <label
+                    for="confirm-password"
+                    class="block text-sm font-medium leading-6 text-white"
+                    >Confirm password</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      id="confirm-password"
+                      name="confirm_password"
+                      type="password"
+                      autocomplete="new-password"
+                      class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+              </div>
+  
+              <div class="mt-8 flex">
+                <button
+                  type="submit"
+                  class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+  
+          <div
+            class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8"
+          >
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-white">
+                Delete account
+              </h2>
+              <p class="mt-1 text-sm leading-6 text-gray-400">
+                No longer want to use our service? You can delete your account
+                here. This action is not reversible. All information related to
+                this account will be deleted permanently.
+              </p>
+            </div>
+  
+            <form
+              class="flex items-start md:col-span-2"
+              action="deleteaccount"
+              method="POST"
+            >
+              <button
+                type="submit"
+                class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400"
+              >
+                Yes, delete my account
+              </button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
 {% endblock %}
