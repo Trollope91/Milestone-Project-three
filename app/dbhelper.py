@@ -17,3 +17,16 @@ class dbhelper():
             return user
 
         return None
+
+    def register(self, email, password):
+        # insert new user if it doesnt exist
+        newuser = {
+            'username': email,
+            'password_hash': password,
+            'email': email
+        }
+        userscollection = self.db['users']
+        doesuserexist = userscollection.find_one({'email': email})
+        if doesuserexist is None:
+            result = userscollection.insert_one(newuser)
+            return True
