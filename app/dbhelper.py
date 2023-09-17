@@ -30,3 +30,6 @@ class dbhelper():
         if doesuserexist is None:
             result = userscollection.insert_one(newuser)
             return True
+
+    def getuserbyusername(self, email):
+        return self.db.users.find_one({"email": email})
