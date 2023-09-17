@@ -1,0 +1,43 @@
+<!-- Off-canvas menu for mobile -->
+
+<div
+  class="relative bg-gray-900 z-50 xl:hidden"
+  role="dialog"
+  aria-modal="true"
+>
+  <div class="sdbar fixed inset-0 bg-gray-900 hidden"></div>
+  <div class="sdbar fixed inset-0 flex hidden">
+    <div class="relative mr-16 flex w-full max-w-xs flex-1">
+      <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
+        <button onclick="closeSidebar()" type="button" class="-m-2.5 p-2.5">
+          <span class="sr-only">Close sidebar</span>
+          <svg
+            class="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Sidebar component -->
+      {% include 'components/sidepanelitems.html' %}
+    </div>
+  </div>
+</div>
+
+<!-- Static sidebar for desktop -->
+<div
+  class="hidden bg-gray-900 xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col"
+>
+  <!-- Sidebar component -->
+  {% include 'components/sidepanelitems.html' %}
+</div>

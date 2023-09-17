@@ -6,6 +6,7 @@ from routes.register import register_bp
 from routes.login import login_bp
 from routes.dashboard import dashboard_bp
 from routes.settings import settings_bp
+from routes.favourites import favourites_bp
 
 from dbhelper import dbhelper
 
@@ -18,6 +19,7 @@ app.register_blueprint(login_bp)
 app.register_blueprint(register_bp)
 app.register_blueprint(dashboard_bp)
 app.register_blueprint(settings_bp)
+app.register_blueprint(favourites_bp)
 
 app.secret_key = os.getenv('SECRET_KEY')
 
