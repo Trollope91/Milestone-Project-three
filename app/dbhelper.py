@@ -33,3 +33,8 @@ class dbhelper():
 
     def getuserbyusername(self, email):
         return self.db.users.find_one({"email": email})
+
+    def updateuser(self, firstname, lastname, email, picture, bio, dob):
+        # insert new user if it doesnt exist
+        self.db.users.update_one({'email': email}, {'$set': {
+                                 'firstname': firstname, 'lastname': lastname, 'profile_picture': picture, 'bio': bio, 'dob': dob}})
