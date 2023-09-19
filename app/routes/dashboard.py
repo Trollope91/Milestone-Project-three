@@ -22,11 +22,17 @@ def dashboard():
     user = db.getuserbyusername(session.get('username'))
     user = db.getAllUsers()
     user = random.choice(user)
+    
     try:
-        # Attempt to parse DOB as 'YYYY-MM-DD'
-        age = getagefromdob(user['dob'])
+            # Attempt to parse DOB as 'YYYY-MM-DD'
+        if 'dob' in user:
+            age = getagefromdob(user['dob'])
+        else:
+            # handles age key not existing
+            age = None
+
     except ValueError:
-        age = "unknown"
+            age = "unknown"
 
     user['age'] = age
     session["displayeduserid"] = user["id"]
@@ -38,6 +44,7 @@ def dashboard():
     response.headers['Expires'] = '0'
 
     return response
+
 
 def getagefromdob(dob):
     if not dob:
@@ -56,9 +63,10 @@ def getagefromdob(dob):
         ((today.month, today.day) < (dob_date.month, dob_date.day))
     return age
 
+
 @dashboard_bp.route("/addusertofavourite", methods=["GET", "POST"])
 def addusertofavourite():
     user = db.getuserbyusername(session.get('username'))
     favouriteuser = session['displayeduserid']
-    db.addusertofavourite(user,favouriteuser)
-    return redirect ('/dashboard')
+    db.addusertofavourite(user, favouriteuser)
+    return redirect('/dashboard')

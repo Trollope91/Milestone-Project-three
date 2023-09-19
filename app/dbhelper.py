@@ -27,6 +27,16 @@ class dbhelper():
         }
         userscollection = self.db['users']
         doesuserexist = userscollection.find_one({'email': email})
+        
+        lastDocument = userscollection.find_one(sort=[('id', -1)])
+        
+        if lastDocument:
+            latest_id = lastDocument['id']
+            next_id = latest_id + 1
+        else:
+            next_id = 1
+            
+        newuser["id"] = next_id
         if doesuserexist is None:
             result = userscollection.insert_one(newuser)
             return True
@@ -53,4 +63,21 @@ class dbhelper():
         }    
         self.db.matches.insert_one(match)
         return True 
+    
+    def get_favourite_users(self, user):
+
+        # Find matches for the user
+        user_matches = self.db.matches.find({"user_id_one": user['id']})
+
+        # Get all users id which are favourited by the user
+        favorite_user_ids = set()
+        for match in user_matches:
+            if match["user_id_two"] != user['id']:
+                favorite_user_ids.add(match["user_id_two"])
+
+        # Retrieve the details of these favorite users
+        favorite_users = list(self.db.users.find(
+            {"id": {"$in": list(favorite_user_ids)}}))
+
+        return favorite_users
 
