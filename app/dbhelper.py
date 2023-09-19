@@ -38,3 +38,8 @@ class dbhelper():
         # insert new user if it doesnt exist
         self.db.users.update_one({'email': email}, {'$set': {
                                  'firstname': firstname, 'lastname': lastname, 'profile_picture': picture, 'bio': bio, 'dob': dob}})
+
+    def getAllUsers(self):
+        userlist = list(self.db.users.find().sort("_id", -1).limit(16))
+        return userlist
+
