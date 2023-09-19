@@ -43,3 +43,14 @@ class dbhelper():
         userlist = list(self.db.users.find().sort("_id", -1).limit(16))
         return userlist
 
+    def addusertofavourite(self, user, favouriteuser):
+        
+    
+        match = {
+            "user_id_one": user['id'],
+            "user_id_two": favouriteuser,
+            "progress": 100
+        }    
+        self.db.matches.insert_one(match)
+        return True 
+

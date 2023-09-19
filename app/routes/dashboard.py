@@ -2,7 +2,8 @@ from flask import (
     Blueprint,
     render_template,
     session,
-    make_response
+    make_response,
+    redirect
 )
 
 import random
@@ -54,3 +55,10 @@ def getagefromdob(dob):
     age = today.year - dob_date.year - \
         ((today.month, today.day) < (dob_date.month, dob_date.day))
     return age
+
+@dashboard_bp.route("/addusertofavourite", methods=["GET", "POST"])
+def addusertofavourite():
+    user = db.getuserbyusername(session.get('username'))
+    favouriteuser = session['displayeduserid']
+    db.addusertofavourite(user,favouriteuser)
+    return redirect ('/dashboard')
