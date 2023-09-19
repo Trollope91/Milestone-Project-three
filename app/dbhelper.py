@@ -49,6 +49,9 @@ class dbhelper():
         self.db.users.update_one({'email': email}, {'$set': {
                                  'firstname': firstname, 'lastname': lastname, 'profile_picture': picture, 'bio': bio, 'dob': dob}})
 
+    def deleteuser(self, email):
+        self.db.users.delete_one({'email': email})                             
+
     def getAllUsers(self):
         userlist = list(self.db.users.find().sort("_id", -1).limit(16))
         return userlist

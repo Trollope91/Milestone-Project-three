@@ -2,12 +2,15 @@ from flask import (
     Blueprint,
     render_template,
     session,
-    request              
+    request,
+    redirect              
 )
 
 from base64helper import compressimagefrombase64
 
 from dbhelper import dbhelper
+
+from decorators.login_required import login_required
 
 db = dbhelper()
 
@@ -28,4 +31,11 @@ def settings():
     user = db.getuserbyusername(session.get('username'))
     selecteditem = "settings"
     return render_template("settings.html", user=user, selecteditem=selecteditem)
+
+@settings_bp.route("/deleteaccount", methods=["POST"])
+def deleteaccount():
+    email = session.get('username')
+    db.deleteuser(email)
+    session.clear()
+    return redirect('/')
 
