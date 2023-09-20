@@ -17,6 +17,7 @@ db = dbhelper()
 settings_bp = Blueprint('settings_bp', __name__)
 
 @settings_bp.route("/settings", methods=["GET", "POST"])
+@login_required
 def settings():
     if request.method == "POST":
         email = request.form.get("email")
@@ -33,6 +34,7 @@ def settings():
     return render_template("settings.html", user=user, selecteditem=selecteditem)
 
 @settings_bp.route("/deleteaccount", methods=["POST"])
+@login_required
 def deleteaccount():
     email = session.get('username')
     db.deleteuser(email)

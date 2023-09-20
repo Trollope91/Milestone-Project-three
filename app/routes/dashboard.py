@@ -12,12 +12,15 @@ import datetime
 
 from dbhelper import dbhelper
 
+from decorators.login_required import login_required
+
 db = dbhelper()
 
 dashboard_bp = Blueprint('dashboard_bp', __name__)
 
 
 @dashboard_bp.route("/dashboard", methods=["GET", "POST"])
+@login_required
 def dashboard():
     user = db.getuserbyusername(session.get('username'))
     user = db.getAllUsers()
@@ -65,6 +68,7 @@ def getagefromdob(dob):
 
 
 @dashboard_bp.route("/addusertofavourite", methods=["GET", "POST"])
+@login_required
 def addusertofavourite():
     user = db.getuserbyusername(session.get('username'))
     favouriteuser = session['displayeduserid']

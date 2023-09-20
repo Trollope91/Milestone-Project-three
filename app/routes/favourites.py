@@ -10,7 +10,10 @@ from flask import (
 )
 
 import os
+
 from dotenv import load_dotenv, find_dotenv
+
+from decorators.login_required import login_required
 
 load_dotenv()
 
@@ -21,6 +24,7 @@ favourites_bp = Blueprint('favourites_bp', __name__)
 
 
 @favourites_bp.route("/favourites", methods=["GET", "POST"])
+@login_required
 def favourites():
     user = db.getuserbyusername(session.get('username'))
     selecteditem = "favourites"
@@ -29,6 +33,7 @@ def favourites():
 
 
 @favourites_bp.route("/removeuserfromfavourite", methods=["GET", "POST"])
+@login_required
 def removeuserfromfavourite():
     user = db.getuserbyusername(session.get('username'))
     favouriteuser = int(request.form.get("displayeduserid"))
