@@ -24,7 +24,17 @@ def login():
         if user:
             session["username"] = email
             g.user = user
-            return redirect(url_for("dashboard_bp.dashboard"))    
+            return redirect(url_for("dashboard_bp.dashboard"))
+        else:
+            message = {
+                'icon': '',
+                'title': 'Account not found',
+                'body': 'Username/Password incorrect',
+                'action1': 'OK',
+                'action1url': url_for("login_bp.login")
+            }
+            return render_template("login.html", message=message)
+
     return render_template("login.html")
 
 @login_bp.route('/logout')

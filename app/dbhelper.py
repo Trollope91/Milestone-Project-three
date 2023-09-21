@@ -12,9 +12,9 @@ class dbhelper():
 
     def authenticateUser(self, email, password):
         user = self.db.users.find_one({"email": email})
-
-        if user['password_hash'] and check_password_hash(user['password_hash'], password):
-            return user
+        if user:
+            if user['password_hash'] and check_password_hash(user['password_hash'], password):
+                return user
 
         return None
 
