@@ -74,20 +74,39 @@ class dbhelper():
         self.db.matches.insert_one(match)
         return True 
     
-    def get_favourite_users(self, user):
-
-      
+    def get_favourite_users(self, user, search=None):
         user_matches = self.db.matches.find({"user_id_one": user['id']})
 
-        # Get all users id which are favourited by the user
         favorite_user_ids = set()
         for match in user_matches:
             if match["user_id_two"] != user['id']:
                 favorite_user_ids.add(match["user_id_two"])
 
-        # Retrieve the details of these favorite users
-        favorite_users = list(self.db.users.find(
-            {"id": {"$in": list(favorite_user_ids)}}))
+        query = {"id": {"$in": list(favorite_user_ids)}}
+
+        if search:
+            search_criteria = [
+                {"firstname": {"$regex": search, "$options": "i"}},
+                {"lastname": {"$regex": search, "$options": "i"}},
+                {"bio": {"$regex": search, "$options": "i"}},
+            ]
+
+            query["$and"] = [{"$or": search_criteria}]
+
+        favorite_users = list(self.db.users.find(query))
 
         return favorite_users
+
+    def removeuserfromfavourite(self, user, favouriteuser):
+        result = self.db.matches.delete_many({
+            "user_id_one": user['id'],
+            "user_id_two": favouriteuser
+        })
+
+        if result.deleted_count > 0:
+            return True
+        else:
+            return False
+
+
 

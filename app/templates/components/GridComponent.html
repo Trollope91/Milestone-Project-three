@@ -1,40 +1,51 @@
 <ul
-    role="list"
-    class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+  role="list"
+  class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 >
-    {% for user in userList %}
-    <li>
-        <img
-            class="aspect-[3/2] w-full rounded-2xl object-cover"
-            src="{% if user.profile_picture %}data:image/png;base64,{{ user.profile_picture }}{% else %}https://placehold.co/80x80{% endif %}"
-            alt=""
-        />
-        <di class="flex">
-        <h3
-            class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900"
+  {% for user in userList %}
+  <li>
+    <img
+      class="aspect-[3/2] w-full rounded-2xl object-cover"
+      src="{% if user.profile_picture %}data:image/png;base64,{{ user.profile_picture }}{% else %}https://placehold.co/80x80{% endif %}"
+      alt=""
+    />
+    <h3
+      class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900"
+    >
+      {{user.firstname + " " + user.lastname}}
+    </h3>
+    <p class="text-base leading-7 text-gray-600 truncate w-100">{{user.bio}}</p>
+    <ul role="list" class="flex gap-x-6">
+      <li>
+        <form
+          class="space-y-6"
+          action="{{ url_for('favourites_bp.removeuserfromfavourite')}}"
+          method="POST"
         >
-            {{user.firstname + " " + user.lastname}}
-        </h3 class="items-end">
-        <h3>
-            <form
-            class="space-y-6"
-            action="{{ url_for('favourites_bp.removeuserfromfavourite')}}"
-            method="POST">
-
-            <input type="hidden" 
+          <input
+            type="hidden"
             value="{{user.id}}"
             id="displayeduserid"
-            name="displayeduserid"/>
-        
-            <button type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
-            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd" />
-          </svg></button>
+            name="displayeduserid"
+          />
+          <button type="submit" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">Unfavourite</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
         </form>
-        </h3>
-        </di>
-          
-        <p class="text-base leading-7 text-gray-600">{{user.bio}}</p>
-    </li>
-    {% endfor %}
+      </li>
+    </ul>
+  </li>
+  {% endfor %}
 </ul>
