@@ -1,5 +1,4 @@
 <ul
-  role="list"
   class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 >
   {% for user in userList %}
@@ -8,14 +7,14 @@
       class="aspect-[3/2] w-full rounded-2xl object-cover"
       src="{% if user.profile_picture %}data:image/png;base64,{{ user.profile_picture }}{% else %}https://placehold.co/80x80{% endif %}"
       alt=""
-    />
+    >
     <h3
       class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900"
     >
       {{user.firstname + " " + user.lastname}}
     </h3>
     <p class="text-base leading-7 text-gray-600 truncate w-100">{{user.bio}}</p>
-    <ul role="list" class="flex gap-x-6">
+    <ul class="flex gap-x-6">
       <li>
         <form
           class="space-y-6"
@@ -27,7 +26,7 @@
             value="{{user.id}}"
             id="displayeduserid"
             name="displayeduserid"
-          />
+          >
           <button type="submit" class="text-gray-400 hover:text-gray-500">
             <span class="sr-only">Unfavourite</span>
             <svg

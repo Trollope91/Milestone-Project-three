@@ -1,18 +1,17 @@
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Find meaningful connections with Soulmate Browse profiles, and discover your perfect match. Join Soulmate today and start your journey to love.">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-    <script type="text/javascript" src="{{ url_for('static', filename='js/sidepanel.js')}}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/filepicker.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/sidepanel.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/filepicker.js')}}"></script>
 
     <link
         rel="icon"
         type="image/x-icon"
-        href="{{ url_for('static', filename='favicon.ico') }}"
-    />
+        href="{{ url_for('static', filename='favicon.ico') }}">
 
     <title>{% block title %}{{page_title}}{% endblock %}</title>
 </head>
