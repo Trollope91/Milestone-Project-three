@@ -3,7 +3,8 @@ from flask import (
     render_template,
     session,
     make_response,
-    redirect
+    redirect,
+    url_for
 )
 
 import random
@@ -22,20 +23,27 @@ dashboard_bp = Blueprint('dashboard_bp', __name__)
 @dashboard_bp.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
-    user = db.getuserbyusername(session.get('username'))
+    logged_in_user = db.getuserbyusername(session.get('username'))
+    if not all(logged_in_user.get(key) for key in ['firstname', 'lastname', 'profile_picture', 'dob']):
+        message = {
+            'icon': 'Please provide an image, firstname, lastname and dob',
+            'title': 'Please fill in your profile settings',
+            'body': 'This will give users access to your profile also',
+            'action1': 'OK',
+            'action1url': url_for("settings_bp.settings")
+        }
+
+        session['message'] = message
+
+        return redirect(url_for('settings_bp.settings'))
+
     user = db.getAllUsers()
     user = random.choice(user)
-    
-    try:
-            # Attempt to parse DOB as 'YYYY-MM-DD'
-        if 'dob' in user:
-            age = getagefromdob(user['dob'])
-        else:
-            # handles age key not existing
-            age = None
 
+    try:
+        age = getagefromdob(user['dob'])
     except ValueError:
-            age = "unknown"
+        age = "unknown"
 
     user['age'] = age
     session["displayeduserid"] = user["id"]
@@ -53,11 +61,9 @@ def getagefromdob(dob):
     if not dob:
         return "unknown"
     try:
-        # Attempt to parse DOB as 'YYYY-MM-DD'
         dob_date = datetime.datetime.strptime(dob, '%Y-%m-%d')
     except ValueError:
         try:
-            # If parsing as 'YYYY-MM-DD' fails, try 'DD-MM-YYYY'
             dob_date = datetime.datetime.strptime(dob, '%d-%m-%Y')
         except ValueError:
             return "Unknown"

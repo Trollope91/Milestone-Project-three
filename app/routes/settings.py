@@ -27,12 +27,14 @@ def settings():
         dob = request.form.get("dob")
         picture = request.form['base64_image']
         compressed_picture = compressimagefrombase64(picture)
-        
+
         db.updateuser(firstname, lastname, email, compressed_picture, bio, dob)
     user = db.getuserbyusername(session.get('username'))
     selecteditem = "settings"
-    return render_template("settings.html", user=user, selecteditem=selecteditem)
+    message = session.pop('message', None)
 
+    return render_template("settings.html", user=user, selecteditem=selecteditem, message=message)
+    
 @settings_bp.route("/deleteaccount", methods=["POST"])
 @login_required
 def deleteaccount():
