@@ -5,7 +5,8 @@ from flask import (
     session,
     g,
     redirect,
-    url_for
+    url_for,
+    make_response
 )
 
 from dbhelper import dbhelper
@@ -25,3 +26,19 @@ def login():
             g.user = user
             return redirect(url_for("dashboard_bp.dashboard"))    
     return render_template("login.html")
+
+@login_bp.route('/logout')
+def logout():
+    g.user = None
+    session.pop('username', None)
+
+    response = make_response(redirect(url_for('login_bp.login')))
+
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+
+    redirect_url = url_for('login_bp.login')
+    response.headers['Location'] = redirect_url
+
+    return response
