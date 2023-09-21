@@ -8,22 +8,24 @@ from flask import (
 )
 
 import random
-
 import datetime
-
 from dbhelper import dbhelper
-
 from decorators.login_required import login_required
 
 db = dbhelper()
 
 dashboard_bp = Blueprint('dashboard_bp', __name__)
 
-
 @dashboard_bp.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
+    """
+    Render the user dashboard page.
+
+    """
     logged_in_user = db.getuserbyusername(session.get('username'))
+    
+    # Check if required profile settings are missing
     if not all(logged_in_user.get(key) for key in ['firstname', 'lastname', 'profile_picture', 'dob']):
         message = {
             'icon': 'Please provide an image, firstname, lastname and dob',
@@ -34,9 +36,9 @@ def dashboard():
         }
 
         session['message'] = message
-
         return redirect(url_for('settings_bp.settings'))
 
+    # Retrieve all users and select one at random
     user = db.getAllUsers()
     user = random.choice(user)
 
@@ -47,6 +49,8 @@ def dashboard():
 
     user['age'] = age
     session["displayeduserid"] = user["id"]
+    
+    # Create a response with no caching
     response = make_response(render_template(
         "dashboard.html", selecteditem="dashboard", user=user))
 
@@ -56,8 +60,11 @@ def dashboard():
 
     return response
 
-
 def getagefromdob(dob):
+    """
+    Calculate the age based on the date of birth.
+
+    """
     if not dob:
         return "unknown"
     try:
@@ -72,10 +79,13 @@ def getagefromdob(dob):
         ((today.month, today.day) < (dob_date.month, dob_date.day))
     return age
 
-
 @dashboard_bp.route("/addusertofavourite", methods=["GET", "POST"])
 @login_required
 def addusertofavourite():
+    """
+    Add a user to the current user's list of favorites.
+
+    """
     user = db.getuserbyusername(session.get('username'))
     favouriteuser = session['displayeduserid']
     db.addusertofavourite(user, favouriteuser)

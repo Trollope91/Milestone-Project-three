@@ -1,5 +1,14 @@
 class User:
+    """
+    Represents a user with various attributes.
+
+    """
+
     def __init__(self, user_data):
+        """
+        Initializes a User object with the provided user data.
+
+        """
         self.id = user_data.get('id')
         self.bio = user_data.get('bio', '')
         self.firstname = user_data.get('firstname', '')
@@ -15,4 +24,9 @@ class User:
         self.profile_picture = user_data.get('profile_picture', '')
 
     def __str__(self):
+        """
+        Returns a formatted string representation of the User object.
+.
+        """
         return f"User(id={self.id}, firstname='{self.firstname}', lastname='{self.lastname}', username='{self.username}')"
+

@@ -15,14 +15,17 @@ from werkzeug.security import generate_password_hash
 load_dotenv()
 
 db = dbhelper()
+
 register_bp = Blueprint('register_bp', __name__)
 
-# Minimum of 8 characters, one uppercase letter, one lowercase letter, 
-# one digit, and one special character
 strong_password_pattern = r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,}$"
 
 @register_bp.route("/register", methods=["GET", "POST"])
 def register():
+    """
+    Handle user registration.
+
+    """
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")

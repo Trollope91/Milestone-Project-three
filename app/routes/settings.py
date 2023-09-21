@@ -22,6 +22,10 @@ settings_bp = Blueprint('settings_bp', __name__)
 @settings_bp.route("/settings", methods=["GET", "POST"])
 @login_required
 def settings():
+    """
+    Handle user settings, both GET and POST requests
+
+    """
     if request.method == "POST":
         email = request.form.get("email")
         firstname = request.form.get("firstname")
@@ -41,6 +45,10 @@ def settings():
 @settings_bp.route("/deleteaccount", methods=["POST"])
 @login_required
 def deleteaccount():
+    """
+    Handles user account deletion.
+
+    """
     email = session.get('username')
     db.deleteuser(email)
     session.clear()
@@ -49,14 +57,17 @@ def deleteaccount():
 @settings_bp.route('/updatepassword', methods=["POST"])
 @login_required
 def updatepassword():
+    """
+    Handles user password update.
+
+    """
     user = db.getuserbyusername(session.get('username'))
     current_password = request.form.get("current_password")
     new_password = request.form.get("new_password")
     confirm_password = request.form.get("confirm_password")
-    #check current password is correct
+
     user = db.authenticateUser(user['email'], current_password)
     if user:
-        #does the new password match the current password
         if new_password != confirm_password:
             message = {
                 'icon': '',
@@ -70,7 +81,7 @@ def updatepassword():
             return redirect(url_for('settings_bp.settings'))
         else:
             hashed_password = generate_password_hash(new_password, method='sha256')
-            db.updatepasswordforuser(user,hashed_password)
+            db.updatepasswordforuser(user, hashed_password)
             message = {
                 'icon': '',
                 'title': 'Successfully updated password',

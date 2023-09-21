@@ -15,16 +15,19 @@ from dotenv import load_dotenv, find_dotenv
 
 load_dotenv()
 
-
 db = dbhelper()
 
 favourites_bp = Blueprint('favourites_bp', __name__)
 
-
 @favourites_bp.route("/favourites", methods=["GET", "POST"])
 @login_required
 def favourites():
+    """
+    Render the user's favorites page.
+
+    """
     logged_in_user = db.getuserbyusername(session.get('username'))
+    
     if not all(logged_in_user.get(key) for key in ['firstname', 'lastname', 'profile_picture', 'dob']):
         message = {
             'icon': 'Please provide an image, firstname, lastname and dob',
@@ -45,6 +48,10 @@ def favourites():
 @favourites_bp.route("/removeuserfromfavourite", methods=["GET", "POST"])
 @login_required
 def removeuserfromfavourite():
+    """
+    Remove a user from the current user's list of favorites.
+
+    """
     user = db.getuserbyusername(session.get('username'))
     favouriteuser = int(request.form.get("displayeduserid"))
     db.removeuserfromfavourite(user, favouriteuser)
@@ -54,6 +61,10 @@ def removeuserfromfavourite():
 @favourites_bp.route("/searchfavourites", methods=["GET", "POST"])
 @login_required
 def searchfavourites():
+    """
+    Search for favorite users by a particular field.
+
+    """
     logged_in_user = db.getuserbyusername(session.get('username'))
     searchField = request.form.get("search_field")
 

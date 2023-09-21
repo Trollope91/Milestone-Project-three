@@ -1,4 +1,4 @@
-from flask import ( 
+from flask import (
     Blueprint,
     render_template,
     request,
@@ -11,12 +11,18 @@ from flask import (
 
 from dbhelper import dbhelper
 
+# Initialize the database helper
 db = dbhelper()
 
+# Create a blueprint for the 'login' route
 login_bp = Blueprint('login_bp', __name__)
 
 @login_bp.route("/", methods=["GET", "POST"])
 def login():
+    """
+    Handles user login.
+
+    """
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
@@ -39,6 +45,10 @@ def login():
 
 @login_bp.route('/logout')
 def logout():
+    """
+    Handles user logout.
+
+    """
     g.user = None
     session.pop('username', None)
 

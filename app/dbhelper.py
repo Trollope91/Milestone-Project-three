@@ -4,15 +4,22 @@ import os
 from models.user import User
 from base64helper import compressimagefromfilepath
 
-
 class dbhelper():
     def __init__(self):
+        """
+        Initializes the database helper.
+
+        """
         connection = os.getenv('connection')
         self.Client = MongoClient(connection)
         dbname = os.getenv('dbname')
         self.db = self.Client[dbname]
 
     def authenticateUser(self, email, password):
+        """
+        Authenticates a user.
+
+        """
         user = self.db.users.find_one({"email": email})
         if user:
             if user['password_hash'] and check_password_hash(user['password_hash'], password):
@@ -21,6 +28,10 @@ class dbhelper():
         return None
 
     def register(self, email, password):
+        """
+        Registers a new user.
+
+        """
         newuser = {
             'username': email,
             'password_hash': password,
@@ -52,31 +63,53 @@ class dbhelper():
             return True
 
     def getuserbyusername(self, email):
+        """
+        Gets user information by username.
+
+        """
         return self.db.users.find_one({"email": email})
 
     def updateuser(self, firstname, lastname, email, picture, bio, dob):
+        """
+        Updates user information.
+
+        """
         self.db.users.update_one({'email': email}, {'$set': {
-                                 'firstname': firstname, 'lastname': lastname, 'profile_picture': picture, 'bio': bio, 'dob': dob}})
+            'firstname': firstname, 'lastname': lastname, 'profile_picture': picture, 'bio': bio, 'dob': dob}})
 
     def deleteuser(self, email):
-        self.db.users.delete_one({'email': email})                             
+        """
+        Delete a user.
+
+        """
+        self.db.users.delete_one({'email': email})
 
     def getAllUsers(self):
+        """
+        Gets a list of all users.
+
+        """
         userlist = list(self.db.users.find().sort("_id", -1).limit(16))
         return userlist
 
     def addusertofavourite(self, user, favouriteuser):
-        
-    
+        """
+        Adds a user to favorites.
+
+        """
         match = {
             "user_id_one": user['id'],
             "user_id_two": favouriteuser,
             "progress": 100
-        }    
+        }
         self.db.matches.insert_one(match)
-        return True 
-    
+        return True
+
     def get_favourite_users(self, user, search=None):
+        """
+        Gets a list of favorite users.
+
+        """
         user_matches = self.db.matches.find({"user_id_one": user['id']})
 
         favorite_user_ids = set()
@@ -100,6 +133,10 @@ class dbhelper():
         return favorite_users
 
     def removeuserfromfavourite(self, user, favouriteuser):
+        """
+        Remove a user from favorites.
+
+        """
         result = self.db.matches.delete_many({
             "user_id_one": user['id'],
             "user_id_two": favouriteuser
@@ -111,8 +148,13 @@ class dbhelper():
             return False
 
     def updatepasswordforuser(self, user, new_password):
+        """
+        Update a user's password.
+
+        """
         self.db.users.update_one({'email': user['email']}, {'$set': {
-                                 'password_hash': new_password}})
+            'password_hash': new_password}})
+
 
     def setup(self):
         userscollection = self.db['users']
