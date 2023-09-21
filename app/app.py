@@ -6,6 +6,7 @@ from flask import (
 )
 import traceback
 
+
 from routes.register import register_bp
 from routes.login import login_bp
 from routes.dashboard import dashboard_bp
@@ -16,6 +17,8 @@ from dbhelper import dbhelper
 
 load_dotenv()
 db = dbhelper()
+
+#db.setup()
 
 app = Flask(__name__)
 
