@@ -69,7 +69,7 @@ I used the balsamiq programme to create the initial wireframes.
 
 ![Desktop-Dashboard-Wireframes](app/static/documentation/dashboard-desktop-wireframe.png)
 
-![Mobile-Dashboard-Wireframes](app/static/documentation/dashboard-desktop-wireframe.png)
+![Mobile-Dashboard-Wireframes](app/static/documentation/dashboard-mobile-wireframe.png)
 
 ### Favourites Wireframes
 
@@ -192,7 +192,10 @@ The website has the below features:
 * As a platform for hosting the app
 
 ### Mongo DB
-*
+* To store my database
+
+### Flask
+* As a framework to build the app
 
 ### Git
 * As a version-control system tracking.
@@ -212,11 +215,9 @@ The website has the below features:
 
  I used Chrome developer tools throughout the project for testing and solving problems with responsiveness and style issues.
 
-## Media Query / Resolution testing 
-
 ### Responsive test
 
- ![desktop-resolution-test] (./assets/documentation/resolution-desktop.png)
+ ![desktop-resolution-test](app/static/documentation/responsive.gif)
 
 
 
