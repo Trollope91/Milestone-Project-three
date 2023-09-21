@@ -2,7 +2,7 @@
 
 ## Code institute milestone project three
 
-![Project_image](app/static/Documentation/project-preview.png)
+![Project_image](app/static/documentation/project-preview.png)
 
 Welcome to Soul Mate - the premier dating app designed to help you find meaningful connections and lasting love. Whether you're looking for a serious relationship, a fun date, or simply a new friend, Soul Mate is here to make the process enjoyable and successful.
 
@@ -21,8 +21,6 @@ Features
 
 4. Favourites
    Add profiles from the dashboard to your favourites and find their full profiles instantly 
-
-## User Experience (UX)
 
 ### User Stories
 
@@ -57,53 +55,61 @@ I used the balsamiq programme to create the initial wireframes.
 
 ### Login Wireframes
 
-![Desktop-Login-Wireframes](app/static/Documentation/login-desktop-wireframe.png)
+![Desktop-Login-Wireframes](app/static/documentation/login-desktop-wireframe.png)
 
-![Mobile-Login-Wireframes](app/static/Documentation/login-mobile-wireframe.png)
+![Mobile-Login-Wireframes](app/static/documentation/login-mobile-wireframe.png)
 
 ### Registration Wireframes
 
-![Desktop-Registration-Wireframes](app/static/Documentation/register-desktop-wireframe.png)
+![Desktop-Registration-Wireframes](app/static/documentation/register-desktop-wireframe.png)
 
-![Mobile-Registration-Wireframes](app/static/Documentation/register-mobile-wireframe.png)
+![Mobile-Registration-Wireframes](app/static/documentation/register-mobile-wireframe.png)
 
 ### Dashboard Wireframes
 
-![Desktop-Dashboard-Wireframes](app/static/Documentation/dashboard-desktop-wireframe.png)
+![Desktop-Dashboard-Wireframes](app/static/documentation/dashboard-desktop-wireframe.png)
 
-![Mobile-Dashboard-Wireframes](app/static/Documentation/dashboard-desktop-wireframe.png)
+![Mobile-Dashboard-Wireframes](app/static/documentation/dashboard-desktop-wireframe.png)
 
 ### Favourites Wireframes
 
-![Desktop-Settings-Wireframes](app/static/Documentation/favourites-desktop-wireframe.png)
+![Desktop-Settings-Wireframes](app/static/documentation/favourites-desktop-wireframe.png)
 
-![Mobile-Settings-Wireframes](app/static/Documentation/favourites-mobile-wireframe.png)
+![Mobile-Settings-Wireframes](app/static/documentation/favourites-mobile-wireframe.png)
 
 ### Error Wireframes
 
-![Desktop-Settings-Wireframes](app/static/Documentation/error-desktop-wireframe.png)
+![Desktop-Settings-Wireframes](app/static/documentation/error-desktop-wireframe.png)
 
-![Mobile-Settings-Wireframes](app/static/Documentation/error-mobile-wireframe.png)
+![Mobile-Settings-Wireframes](app/static/documentation/error-mobile-wireframe.png)
+
+### Error Wireframes
+
+I chose a non-relational database for my dating app for three key reasons, rooted in the fundamental differences between relational and non-relational databases.
+
+dating apps deal with diverse and unstructured user-generated content, which often doesn't fit neatly into the structured tables of relational databases. Non-relational databases offer the flexibility to adapt to changing data formats and requirements without the constraints of fixed schemas, making them better suited to handle this variability.
+
+the decision to use a non-relational database was driven by the need for flexibility, scalability, and enhanced performance in managing unstructured data—qualities that make it the ideal choice for delivering a seamless and responsive dating experience compared to the more structured and rigid nature of relational databases.
+
+![database-schema](app/static/documentation/database-structure.png)
 
 ### Colors
 
-Main colours used in the project:
-
-Text in paragraphs :
+Main colours used in the project: 
+hex #111827 for the background
+hex #6366f1 for buttons and some links
 
 ### Images
 
 -   Logos imagery and concepts for soul mate were created by myself using video and photo editing software such as adobe photoshop and capcut.
 
 ## logo design concepts
-![Images](app/static/Documentation/logo-concepts.png)
-
+![Images](app/static/documentation/logo-concepts.png)
 
 ## login concept
-![Images](app/static/Documentation/concept-logins.png)
+![Images](app/static/documentation/concept-logins.png)
 
 # Features
-The website consists of a single page with a title, gamecontainer and buttons for the sound and the game mode.
 
 The website has the below features:
 
@@ -111,16 +117,20 @@ The website has the below features:
 
 * #### The login screen is comprised of an input for email and password with a link that take users to a page allowing them to sign up and create an account
 
-![project images](./assets/documentation/gameboard.png)
+![project images](app/static/documentation/login-desktop.png)
+![project images](app/static/documentation/login-tablet-mobile.png)
+
 
 ## Registraion
-
 * #### The registration page is where users will create an account
 
     * The page consists of a username field and password field
     * An addition field is available for the user to confirm their password
 
-       ![project images](./assets/documentation/gameboard.png)
+![project images](app/static/documentation/register-desktop.png)
+![project images](app/static/documentation/register-tablet-mobile.png)
+
+
 
 ## Dashboard
 
@@ -128,27 +138,33 @@ The website has the below features:
 * The user is able to forward their search randomly through other members of the dating app
 * A favourite button is included to add a user to a favourites page for future browsing
 
-![project images](./assets/documentation/game-mode.png)
+![project images](app/static/documentation/dashboard-desktop.png)
+![project images](app/static/documentation/dashboard-tablet-mobile.png)
 
 ## Favourites page
 
 * The users favourited accounts will be kept in this page
 * The user can remove accounts from this page by clicking on the unfavourite button
 
-![project images](./assets/documentation/buttons.png)
+![project images](app/static/documentation/favourite-desktop.png)
+![project images](app/static/documentation/favourite-tablet-mobile.png)
+
 
 ## Settings page
 
 * The user has access to multiple options allowing them to change their display picture, name and or bio
 * The user is also able to delete their account and remove themselves from the database here
 
-![project images](./assets/documentation/404-screen.png)
+![project images](app/static/documentation/settings-desktop.png)
+![project images](app/static/documentation/settings-tablet-mobile.png)
+
 
 ## Error page
 
 * If the user encounters an error for any reason they will be redirected to this error page that then grants them the option to return to the dashboard
 
-![project images](./assets/documentation/error-modal.png)
+![project images](app/static/documentation/error-desktop.png)
+![project images](app/static/documentation/error-tablet-mobile.png)
 
 ##  Future implementations
 
@@ -198,17 +214,10 @@ The website has the below features:
 
 ## Media Query / Resolution testing 
 
-### Desktop Resolution
+### Responsive test
 
- ![desktop-resolution-test](./assets/documentation/resolution-desktop.png)
+ ![desktop-resolution-test] (./assets/documentation/resolution-desktop.png)
 
- ### Tablet Resolution
-
- ![tablet-resolution-test](./assets/documentation/resolution-tablet.png)
-
- ### Mobile Resolution
-
- ![mobile-resolution-test](./assets/documentation/resolution-mobile.png)
 
 
 ## Compatibility testing
@@ -218,9 +227,7 @@ The website has the below features:
 
 ## User stories testing
 
-### As the Site Owner:
-
-- 
+### As the Site Owner: 
 
 -   I would like to present a modern and attractive looking dating app
       >Site loads into a modern login page powered by tailwind css
@@ -239,8 +246,6 @@ The website has the below features:
 
 ### As a new customer:
 
-### As a new customer:
-
 -   be able to create a new account as simply as possible taking a username and password
       >Navigation to the registration page is easy and straight forward from the login page
 -   after signing up capture additional information such as hobbies and bio, tags for personal preferences
@@ -252,28 +257,35 @@ The website has the below features:
 
 ## Issues found during site development
 
-I had issues when trying to intergrate audio into the game as chrome mutes any sound on page launch, I rectified this by adding the option to enable sound through the modal ensuring that the user was both agreeing to have sound on the page and interacting with the page before hand.
+I had issues with the speed of the page loading on the favourites page due to the size of the images being uploaded, I rectified this by employing python code to compress the images and converting them to base 64 to be passed into the image fields
+
+![testing_issue_1](app/static/documentation/base.png)
 #
 
-when employing the harder difficulty mode I ran into problems with the code understanding that the game cards that were invisble were not to be interacted with leading to a situation where the smaller easier gameboard would not reset on completion, through use of debugging in dev tools i found this to be an issue with the javascript conflicting with the elements css's display styling at default.
+Initially after uploading the dummy data to the database the profile images were not synced with the correct names, this was rectified by the restructuring of the profile pic numbering style
 
-![testing_issue_1](./assets/documentation/wont-reset.png)
+![testing_issue_2](app/static/documentation/account-mismatched.png)
+![testing_issue_2](app/static/documentation/reorganised.png)
+
 
 #
 
 game tiles appeared to be blown out of proportion on actual device but was rectified by updating old built in browsers and using more modern borwsers like chrome & fire fox to be able to understand more moder css stylings like scale etc.
 
-![testing_issue_2](./assets/documentation/blown-up.png)
+![testing_issue_3](./assets/documentation/blown-up.png)
 #
-using transform scale styling created a transitional problem where the back facing images would not scale the same as the front, I fixed this my changing the transform scale style to the more modern scale styling
-![testing_issue_3_part1](./assets/documentation/css.png)
-![testing_issue_3_part1](./assets/documentation/overlap.png)
-![testing_issue_3](./assets/documentation/scale.png)
-![testing_issue_3](./assets/documentation/scalefix.png)
+
 
 ## Manual testing
 
-I performed various exercises on the game inputting on the gamecards and button in an attempt to break the game or page
+I performed various exercises on the site attempting to break the order of movement through the app and checking that all error handling occured correctly
+
+![manual_testing_1](app/static/documentation/errorcheckone.png)
+![manual_testing_2](app/static/documentation/errorchecktwo.png)
+![manual_testing_3](app/static/documentation/errorcheckthree.png)
+![manual_testing_4](app/static/documentation/errorcheckfour.png)
+![manual_testing_5](app/static/documentation/errorcheckfive.png)
+![manual_testing_6](app/static/documentation/errorchecksix.png)
 
 ## Automated testing
 
@@ -281,7 +293,7 @@ I performed various exercises on the game inputting on the gamecards and button 
  At the and of the project I used two websites to validate a code
  
  * [W3C CSS Validator]() to validate CSS
-  ![Css-validation]()
+  ![Css-validation](app/static/documentation/css-validation.png)
   #
 
    * [Wave](https://wave.webaim.org/report#/https://trollope91.github.io/Milestone-Project-2/) to assess page accessibility and error check
@@ -289,23 +301,31 @@ I performed various exercises on the game inputting on the gamecards and button 
 
   #
  * [Nu Html Checker](https://validator.w3.org/) to test HTML
-  ![Html-validation]()
+
+  ![Html-validation-login](app/static/documentation/login-html.png)
+  ![Html-validation-register](app/static/documentation/register-html.png)
+  ![Html-validation-dashboard](app/static/documentation/dashboard-html.png)
+  ![Html-validation-favourites](app/static/documentation/favourites-html.png)
+  ![Html-validation-settings](app/static/documentation/settings-html.png)
+  ![Html-validation-error](app/static/documentation/error-html.png)
   #
 *  [jshint](https://jshint.com/) To error check javascript code
-![Javascript-validation-part1]()
-![Javascript-validation-part2]()
+![Javascript-validation-part1](app/static/documentation/jshint1.png)
+![Javascript-validation-part2](app/static/documentation/jshint2.png)
 
 # Deployment
 
-The project was deployed on GitHub Pages. I used Gitpod as a development environment where I committed all changes to git version control system.
+I used Gitpod as a development environment where I committed all changes to git version control system.
 
-## Repository
+The application was deployed to heroku for the live site.
 
-https://github.com/Trollope91/Milestone-Project-2
+## Github Repository
+
+https://github.com/Trollope91/Milestone-Project-three
 
 ## Live link
 
-https://trollope91.github.io/Milestone-Project-2/
+
 
 ## Copying the repository
 
@@ -314,9 +334,6 @@ Open a terminal on their local machine and navigate to the directory where they 
 Wait for the cloning process to complete.
 
 ## Clone link
-
-https://github.com/Trollope91/Milestone-Project-2.git
-
 
 
 ## Forking the repository
@@ -332,17 +349,6 @@ ___
 
 * Ideas and knowledge library:
 
-    * [bootstrap modal alignment](https://aguidehub.com/blog/how-to-show-bootstrap-modal-popup-in-center-of-screen/)
-
-    * [monkey testing](https://css-tricks.com/intro-monkey-testing-gremlins-js/)
-
-    * [udacity](https://www.udacity.com/blog/2021/03/creating-an-html-404-error-web-page.html)
-
     * [w3schools.com](https://www.w3schools.com)
 
     * [css-tricks.com](https://css-tricks.com/)
-
-    * [getbootstrap.com/docs](https://getbootstrap.com/docs/4.6.2/getting-started/introduction/)
-
-    * [Card flipping tutorial](https://marina-ferreira.github.io/tutorials/js/memory-game/)
-
