@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
-from models.User import User
+from models.user import User
 
 class dbhelper():
     def __init__(self):
@@ -108,5 +108,7 @@ class dbhelper():
         else:
             return False
 
-
+    def updatepasswordforuser(self, user, new_password):
+        self.db.users.update_one({'email': user['email']}, {'$set': {
+                                 'password_hash': new_password}})
 

@@ -230,7 +230,10 @@ endblock%} {% block content %}
             </p>
           </div>
 
-          <form class="md:col-span-2">
+          <form class="md:col-span-2"
+          action="{{ url_for('settings_bp.updatepassword')}}"
+          method="POST">
+          
             <div
               class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6"
             >
