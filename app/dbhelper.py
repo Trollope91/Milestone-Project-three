@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
-
+from models.User import User
 
 class dbhelper():
     def __init__(self):
@@ -19,7 +19,6 @@ class dbhelper():
         return None
 
     def register(self, email, password):
-        # insert new user if it doesnt exist
         newuser = {
             'username': email,
             'password_hash': password,
@@ -27,25 +26,33 @@ class dbhelper():
         }
         userscollection = self.db['users']
         doesuserexist = userscollection.find_one({'email': email})
-        
+
         lastDocument = userscollection.find_one(sort=[('id', -1)])
-        
+
         if lastDocument:
-            latest_id = lastDocument['id']
+            latest_id = lastDocument.get('id', 0)
             next_id = latest_id + 1
         else:
             next_id = 1
-            
-        newuser["id"] = next_id
+
+        new_user_data = {
+            'id': next_id,
+            'username': newuser['username'],
+            'password_hash': newuser['password_hash'],
+            'email': newuser['email']
+        }
+
         if doesuserexist is None:
-            result = userscollection.insert_one(newuser)
+            anew_user = User(new_user_data)
+            result = userscollection.insert_one(
+                anew_user.__dict__)
+
             return True
 
     def getuserbyusername(self, email):
         return self.db.users.find_one({"email": email})
 
     def updateuser(self, firstname, lastname, email, picture, bio, dob):
-        # insert new user if it doesnt exist
         self.db.users.update_one({'email': email}, {'$set': {
                                  'firstname': firstname, 'lastname': lastname, 'profile_picture': picture, 'bio': bio, 'dob': dob}})
 
@@ -69,7 +76,7 @@ class dbhelper():
     
     def get_favourite_users(self, user):
 
-        # Find matches for the user
+      
         user_matches = self.db.matches.find({"user_id_one": user['id']})
 
         # Get all users id which are favourited by the user
