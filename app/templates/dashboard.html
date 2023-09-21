@@ -19,9 +19,8 @@
                    <div class="grid grid-cols-3 text-center order-last md:order-first md:mt-0"></div>
                    <div class="relative">
                       <div class="circular_image w-48 h-48 galaxy-fold bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
-                         <img src="{% if user.profile_picture %}
-                            {{ user.profile_picture }}
-                            {% endif %}"
+                         <img 
+                            src="{% if user.profile_picture %}data:image/png;base64,{{ user.profile_picture }}{% else %}https://placehold.co/80x80{% endif %}"
                             alt="Image"
                             class="rounded-lg max-w-full h-auto mx-auto max-w-xs max-h-xs" />
                       </div>
