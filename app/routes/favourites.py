@@ -19,6 +19,7 @@ db = dbhelper()
 
 favourites_bp = Blueprint('favourites_bp', __name__)
 
+
 @favourites_bp.route("/favourites", methods=["GET", "POST"])
 @login_required
 def favourites():
@@ -27,8 +28,9 @@ def favourites():
 
     """
     logged_in_user = db.getuserbyusername(session.get('username'))
-    
-    if not all(logged_in_user.get(key) for key in ['firstname', 'lastname', 'profile_picture', 'dob']):
+
+    if not all(logged_in_user.get(key) for key in ['firstname', 'lastname',
+                                                   'profile_picture', 'dob']):
         message = {
             'icon': 'Please provide an image, firstname, lastname and dob',
             'title': 'Please fill in your profile settings',
@@ -42,7 +44,8 @@ def favourites():
 
     selecteditem = "favourites"
     userList = db.get_favourite_users(logged_in_user)
-    return render_template("favourites.html", user=logged_in_user, selecteditem=selecteditem, userList=userList)
+    return render_template("favourites.html", user=logged_in_user,
+                           selecteditem=selecteditem, userList=userList)
 
 
 @favourites_bp.route("/removeuserfromfavourite", methods=["GET", "POST"])
@@ -68,7 +71,8 @@ def searchfavourites():
     logged_in_user = db.getuserbyusername(session.get('username'))
     searchField = request.form.get("search_field")
 
-    if not all(logged_in_user.get(key) for key in ['firstname', 'lastname', 'profile_picture', 'dob']):
+    if not all(logged_in_user.get(key) for key in ['firstname', 'lastname',
+                                                   'profile_picture', 'dob']):
         message = {
             'icon': 'Please provide an image, firstname, lastname and dob',
             'title': 'Please fill in your profile settings',
@@ -82,4 +86,5 @@ def searchfavourites():
 
     selecteditem = "favourites"
     userList = db.get_favourite_users(logged_in_user, searchField)
-    return render_template("favourites.html", user=logged_in_user, selecteditem=selecteditem, userList=userList)
+    return render_template("favourites.html", user=logged_in_user,
+                           selecteditem=selecteditem, userList=userList)
