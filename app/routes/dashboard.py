@@ -16,6 +16,7 @@ db = dbhelper()
 
 dashboard_bp = Blueprint('dashboard_bp', __name__)
 
+
 @dashboard_bp.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
@@ -24,9 +25,10 @@ def dashboard():
 
     """
     logged_in_user = db.getuserbyusername(session.get('username'))
-    
+
     # Check if required profile settings are missing
-    if not all(logged_in_user.get(key) for key in ['firstname', 'lastname', 'profile_picture', 'dob']):
+    if not all(logged_in_user.get(key) for key in ['firstname', 'lastname',
+                                                   'profile_picture', 'dob']):
         message = {
             'icon': 'Please provide an image, firstname, lastname and dob',
             'title': 'Please fill in your profile settings',
@@ -49,7 +51,7 @@ def dashboard():
 
     user['age'] = age
     session["displayeduserid"] = user["id"]
-    
+
     # Create a response with no caching
     response = make_response(render_template(
         "dashboard.html", selecteditem="dashboard", user=user))
@@ -59,6 +61,7 @@ def dashboard():
     response.headers['Expires'] = '0'
 
     return response
+
 
 def getagefromdob(dob):
     """
@@ -78,6 +81,7 @@ def getagefromdob(dob):
     age = today.year - dob_date.year - \
         ((today.month, today.day) < (dob_date.month, dob_date.day))
     return age
+
 
 @dashboard_bp.route("/addusertofavourite", methods=["GET", "POST"])
 @login_required
