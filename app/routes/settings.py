@@ -1,10 +1,10 @@
-from flask import ( 
+from flask import (
     Blueprint,
     render_template,
     session,
     request,
     redirect,
-    url_for        
+    url_for
 )
 
 from werkzeug.security import generate_password_hash
@@ -18,6 +18,7 @@ from decorators.login_required import login_required
 db = dbhelper()
 
 settings_bp = Blueprint('settings_bp', __name__)
+
 
 @settings_bp.route("/settings", methods=["GET", "POST"])
 @login_required
@@ -40,8 +41,10 @@ def settings():
     selecteditem = "settings"
     message = session.pop('message', None)
 
-    return render_template("settings.html", user=user, selecteditem=selecteditem, message=message)
-    
+    return render_template("settings.html", user=user,
+                           selecteditem=selecteditem, message=message)
+
+
 @settings_bp.route("/deleteaccount", methods=["POST"])
 @login_required
 def deleteaccount():
@@ -53,6 +56,7 @@ def deleteaccount():
     db.deleteuser(email)
     session.clear()
     return redirect('/')
+
 
 @settings_bp.route('/updatepassword', methods=["POST"])
 @login_required
@@ -80,7 +84,8 @@ def updatepassword():
 
             return redirect(url_for('settings_bp.settings'))
         else:
-            hashed_password = generate_password_hash(new_password, method='sha256')
+            hashed_password = generate_password_hash(new_password,
+                                                     method='sha256')
             db.updatepasswordforuser(user, hashed_password)
             message = {
                 'icon': '',
@@ -92,7 +97,7 @@ def updatepassword():
             session['message'] = message
 
             return redirect(url_for('settings_bp.settings'))
-            
+
     else:
         message = {
             'icon': '',
