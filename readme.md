@@ -361,11 +361,13 @@ https://soulmate-0737784650f0.herokuapp.com/
 ## Copying the repository
 
 A user can make a local copy of my repository by going to the GitHub repository page of my project and clicking on the "Code" button which will open a dropdown menu, select the protocol (HTTPS or SSH) for the clone URL and copy it to the clipboard.
+
 Open a terminal on their local machine and navigate to the directory where they want to store the project then type the command "git clone" followed by the URL they copied in step 3, and press Enter.
 Wait for the cloning process to complete.
 
-## Clone link
+Git will start cloning the repository onto your local machine. Depending on the size of the repository and your internet connection, this may take a moment.
 
+Once the cloning process is complete, you will have a local copy of the GitHub repository in the directory you specified
 
 ## Forking the repository
 
