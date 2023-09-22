@@ -6,7 +6,6 @@ from flask import (
 )
 import traceback
 
-# Import your blueprint routes
 from routes.register import register_bp
 from routes.login import login_bp
 from routes.dashboard import dashboard_bp
@@ -26,7 +25,7 @@ db = dbhelper()
 app = Flask(__name__)
 
 # Register the blueprints for your routes
-app.register_blueprint(login_bp)    
+app.register_blueprint(login_bp)
 app.register_blueprint(register_bp)
 app.register_blueprint(dashboard_bp)
 app.register_blueprint(settings_bp)
@@ -34,6 +33,7 @@ app.register_blueprint(favourites_bp)
 
 # Set the Flask app's secret key from environment variables
 app.secret_key = os.getenv('SECRET_KEY')
+
 
 @app.errorhandler(Exception)
 def handle_exception(error):
@@ -47,6 +47,7 @@ def handle_exception(error):
 
     print(traceback_info)
     return render_template('error.html')
+
 
 if __name__ == "__main__":
     app.run(
