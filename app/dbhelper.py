@@ -4,6 +4,7 @@ import os
 from models.user import User
 from base64helper import compressimagefromfilepath
 
+
 class dbhelper():
     def __init__(self):
         """
@@ -22,7 +23,8 @@ class dbhelper():
         """
         user = self.db.users.find_one({"email": email})
         if user:
-            if user['password_hash'] and check_password_hash(user['password_hash'], password):
+            stored_password_hash = user.get('password_hash', '')
+            if check_password_hash(stored_password_hash, password):
                 return user
 
         return None
@@ -75,7 +77,9 @@ class dbhelper():
 
         """
         self.db.users.update_one({'email': email}, {'$set': {
-            'firstname': firstname, 'lastname': lastname, 'profile_picture': picture, 'bio': bio, 'dob': dob}})
+            'firstname': firstname, 'lastname': lastname,
+            'profile_picture': picture, 'bio': bio,
+            'dob': dob}})
 
     def deleteuser(self, email):
         """
@@ -155,309 +159,370 @@ class dbhelper():
         self.db.users.update_one({'email': user['email']}, {'$set': {
             'password_hash': new_password}})
 
-
     def setup(self):
         userscollection = self.db['users']
-        users = [{
-            'id': 1,
-            'bio': 'Tech enthusiast and software developer. Building innovative solutions for complex problems.',
-            'firstname': 'John',
-            'lastname': 'Smith',
-            'username': 'john.smith',
-            'password_hash': 'wz3AvmLS1B',
-            'dob': '15-11-1985',
-            'gender': 'male',
-            'is confirmed': 1,
-            'created_at': '30-04-2019',
-            'phone_number': '+1-555-456-7890',
-            'email': 'john.smith@example.com',
-            'profile_picture': ''
-        },
+        users = [
             {
-            'id': 2,
-            'bio': 'Music lover and guitarist. Playing melodies that soothe the soul.',
-            'firstname': 'Michael',
-            'lastname': 'Johnson',
-            'username': 'michael.johnson',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '03-09-1979',
-            'gender': 'male',
-            'is confirmed': 1,
-            'created_at': '09-11-2020',
-            'phone_number': '+1-555-567-8901',
-            'email': 'michael.johnson@example.com',
-            'profile_picture': ''
-        },
+                'id': 1,
+                'bio': (
+                    'Tech enthusiast and software developer. '
+                    'Building innovative solutions for complex problems.'
+                ),
+                'firstname': 'John',
+                'lastname': 'Smith',
+                'username': 'john.smith',
+                'password_hash': 'wz3AvmLS1B',
+                'dob': '15-11-1985',
+                'gender': 'male',
+                'is_confirmed': 1,
+                'created_at': '30-04-2019',
+                'phone_number': '+1-555-456-7890',
+                'email': 'john.smith@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 3,
-            'bio': 'Outdoor adventurer and nature enthusiast. Exploring the beauty of the wilderness.',
-            'firstname': 'William',
-            'lastname': 'Brown',
-            'username': 'william.brown',
-            'password_hash': 'wzZjZdL4B1',
-            'dob': '14-05-1983',
-            'gender': 'male',
-            'is confirmed': 1,
-            'created_at': '10-07-2019',
-            'phone_number': '+1-555-234-5678',
-            'email': 'william.brown@example.com',
-            'profile_picture': ''
-        },
+                'id': 2,
+                'bio': (
+                    'Music lover and guitarist. '
+                    'Playing melodies that soothe the soul.'
+                ),
+                'firstname': 'Michael',
+                'lastname': 'Johnson',
+                'username': 'michael.johnson',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '03-09-1979',
+                'gender': 'male',
+                'is_confirmed': 1,
+                'created_at': '09-11-2020',
+                'phone_number': '+1-555-567-8901',
+                'email': 'michael.johnson@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 4,
-            'bio': 'Foodie and culinary artist. Creating gastronomic delights for the taste buds.',
-            'firstname': 'Daniel',
-            'lastname': 'Davis',
-            'username': 'daniel.davis',
-            'password_hash': 'wzZj4cLB1B',
-            'dob': '30-01-1992',
-            'gender': 'male',
-            'is confirmed': 1,
-            'created_at': '25-03-2020',
-            'phone_number': '+1-555-678-9012',
-            'email': 'daniel.davis@example.com',
-            'profile_picture': ''
-        },
+                'id': 3,
+                'bio': (
+                    'Outdoor adventurer and nature enthusiast. '
+                    'Exploring the beauty of the wilderness.'
+                ),
+                'firstname': 'William',
+                'lastname': 'Brown',
+                'username': 'william.brown',
+                'password_hash': 'wzZjZdL4B1',
+                'dob': '14-05-1983',
+                'gender': 'male',
+                'is_confirmed': 1,
+                'created_at': '10-07-2019',
+                'phone_number': '+1-555-234-5678',
+                'email': 'william.brown@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 5,
-            'bio': 'Gamer and esports enthusiast. Dominating virtual worlds one game at a time.',
-            'firstname': 'James',
-            'lastname': 'Garcia',
-            'username': 'james.garcia',
-            'password_hash': 'wzZj4cLB1B',
-            'dob': '12-06-1987',
-            'gender': 'male',
-            'is confirmed': 1,
-            'created_at': '17-10-2018',
-            'phone_number': '+1-555-789-0123',
-            'email': 'james.garcia@example.com',
-            'profile_picture': ''
-        },
+                'id': 4,
+                'bio': (
+                    'Foodie and culinary artist. '
+                    'Creating gastronomic delights for the taste buds.'
+                ),
+                'firstname': 'Daniel',
+                'lastname': 'Davis',
+                'username': 'daniel.davis',
+                'password_hash': 'wzZj4cLB1B',
+                'dob': '30-01-1992',
+                'gender': 'male',
+                'is_confirmed': 1,
+                'created_at': '25-03-2020',
+                'phone_number': '+1-555-678-9012',
+                'email': 'daniel.davis@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 6,
-            'bio': 'Fitness enthusiast and personal trainer. Helping clients achieve their fitness goals.',
-            'firstname': 'David',
-            'lastname': 'Martinez',
-            'username': 'david.martinez',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '08-03-1990',
-            'gender': 'male',
-            'is confirmed': 1,
-            'created_at': '15-05-2019',
-            'phone_number': '+1-555-345-6789',
-            'email': 'david.martinez@example.com',
-            'profile_picture': ''
-        },
+                'id': 5,
+                'bio': (
+                    'Gamer and esports enthusiast. '
+                    'Dominating virtual worlds one game at a time.'
+                ),
+                'firstname': 'James',
+                'lastname': 'Garcia',
+                'username': 'james.garcia',
+                'password_hash': 'wzZj4cLB1B',
+                'dob': '12-06-1987',
+                'gender': 'male',
+                'is_confirmed': 1,
+                'created_at': '17-10-2018',
+                'phone_number': '+1-555-789-0123',
+                'email': 'james.garcia@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 7,
-            'bio': 'Bookworm and literature lover. Immersed in the world of books and stories.',
-            'firstname': 'Joseph',
-            'lastname': 'Wilson',
-            'username': 'joseph.wilson',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '20-11-1993',
-            'gender': 'male',
-            'is confirmed': 1,
-            'created_at': '08-12-2020',
-            'phone_number': '+1-555-123-4567',
-            'email': 'joseph.wilson@example.com',
-            'profile_picture': ''
-        },
+                'id': 6,
+                'bio': (
+                    'Fitness enthusiast and personal trainer. '
+                    'Helping clients achieve their fitness goals.'
+                ),
+                'firstname': 'David',
+                'lastname': 'Martinez',
+                'username': 'david.martinez',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '08-03-1990',
+                'gender': 'male',
+                'is_confirmed': 1,
+                'created_at': '15-05-2019',
+                'phone_number': '+1-555-345-6789',
+                'email': 'david.martinez@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 8,
-            'bio': 'Art lover and aspiring painter. Creating colorful and imaginative artwork.',
-            'firstname': 'Matthew',
-            'lastname': 'Harris',
-            'username': 'matthew.harris',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '09-07-1991',
-            'gender': 'male',
-            'is confirmed': 1,
-            'created_at': '20-01-2021',
-            'phone_number': '+1-555-234-5678',
-            'email': 'matthew.harris@example.com',
-            'profile_picture': ''
-        },
+                'id': 7,
+                'bio': (
+                    'Bookworm and literature lover. '
+                    'Immersed in the world of books and stories.'
+                ),
+                'firstname': 'Joseph',
+                'lastname': 'Wilson',
+                'username': 'joseph.wilson',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '20-11-1993',
+                'gender': 'male',
+                'is_confirmed': 1,
+                'created_at': '08-12-2020',
+                'phone_number': '+1-555-123-4567',
+                'email': 'joseph.wilson@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 9,
-            'bio': 'Animal lover and volunteer at the local shelter. Advocating for furry friends.',
-            'firstname': 'Daniel',
-            'lastname': 'Anderson',
-            'username': 'daniel.anderson2',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '18-02-1986',
-            'gender': 'male',
-            'is confirmed': 1,
-            'created_at': '22-03-2019',
-            'phone_number': '+1-555-345-6789',
-            'email': 'daniel.anderson2@example.com',
-            'profile_picture': ''
-        },
+                'id': 8,
+                'bio': (
+                    'Art lover and aspiring painter. '
+                    'Creating colorful and imaginative artwork.'
+                ),
+                'firstname': 'Matthew',
+                'lastname': 'Harris',
+                'username': 'matthew.harris',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '09-07-1991',
+                'gender': 'male',
+                'is_confirmed': 1,
+                'created_at': '20-01-2021',
+                'phone_number': '+1-555-234-5678',
+                'email': 'matthew.harris@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 10,
-            'bio': 'Tech geek and coding enthusiast. Building the future one line of code at a time.',
-            'firstname': 'Michael',
-            'lastname': 'Miller',
-            'username': 'michael.miller',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '25-09-1984',
-            'gender': 'male',
-            'is confirmed': 1,
-            'created_at': '04-06-2021',
-            'phone_number': '+1-555-456-7890',
-            'email': 'michael.miller@example.com',
-            'profile_picture': ''
-        },
+                'id': 9,
+                'bio': (
+                    'Animal lover and volunteer at the local shelter. '
+                    'Advocating for furry friends.'
+                ),
+                'firstname': 'Daniel',
+                'lastname': 'Anderson',
+                'username': 'daniel.anderson2',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '18-02-1986',
+                'gender': 'male',
+                'is_confirmed': 1,
+                'created_at': '22-03-2019',
+                'phone_number': '+1-555-345-6789',
+                'email': 'daniel.anderson2@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 11,
-            'bio': 'Tech enthusiast and software developer. Building innovative solutions for complex problems.',
-            'firstname': 'Emily',
-            'lastname': 'Johnson',
-            'username': 'emily.johnson',
-            'password_hash': 'wz3AvmLS1B',
-            'dob': '05-03-1988',
-            'gender': 'female',
-            'is confirmed': 1,
-            'created_at': '30-04-2019',
-            'phone_number': '+1-555-456-7890',
-            'email': 'emily.johnson@example.com',
-            'profile_picture': ''
-        },
+                'id': 10,
+                'bio': (
+                    'Tech geek and coding enthusiast. '
+                    'Building the future one line of code at a time.'
+                ),
+                'firstname': 'Michael',
+                'lastname': 'Miller',
+                'username': 'michael.miller',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '25-09-1984',
+                'gender': 'male',
+                'is_confirmed': 1,
+                'created_at': '04-06-2021',
+                'phone_number': '+1-555-456-7890',
+                'email': 'michael.miller@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 12,
-            'bio': 'Music lover and pianist. Playing melodies that touch the heart.',
-            'firstname': 'Sophia',
-            'lastname': 'Garcia',
-            'username': 'sophia.garcia',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '10-09-1990',
-            'gender': 'female',
-            'is confirmed': 1,
-            'created_at': '14-11-2020',
-            'phone_number': '+1-555-567-8901',
-            'email': 'sophia.garcia@example.com',
-            'profile_picture': ''
-        },
+                'id': 11,
+                'bio': (
+                    'Tech enthusiast and software developer. '
+                    'Building innovative solutions for complex problems.'
+                ),
+                'firstname': 'Emily',
+                'lastname': 'Johnson',
+                'username': 'emily.johnson',
+                'password_hash': 'wz3AvmLS1B',
+                'dob': '05-03-1988',
+                'gender': 'female',
+                'is_confirmed': 1,
+                'created_at': '30-04-2019',
+                'phone_number': '+1-555-456-7890',
+                'email': 'emily.johnson@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 13,
-            'bio': 'Nature lover and hiker. Exploring the beauty of the great outdoors.',
-            'firstname': 'Olivia',
-            'lastname': 'Brown',
-            'username': 'olivia.brown',
-            'password_hash': 'wzZjZdL4B1',
-            'dob': '20-06-1985',
-            'gender': 'female',
-            'is confirmed': 1,
-            'created_at': '18-07-2019',
-            'phone_number': '+1-555-234-5678',
-            'email': 'olivia.brown@example.com',
-            'profile_picture': ''
-        },
+                'id': 12,
+                'bio': (
+                    'Music lover and pianist. '
+                    'Playing melodies that touch the heart.'
+                ),
+                'firstname': 'Sophia',
+                'lastname': 'Garcia',
+                'username': 'sophia.garcia',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '10-09-1990',
+                'gender': 'female',
+                'is_confirmed': 1,
+                'created_at': '14-11-2020',
+                'phone_number': '+1-555-567-8901',
+                'email': 'sophia.garcia@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 14,
-            'bio': 'Foodie and culinary artist. Crafting delicious dishes that satisfy the palate.',
-            'firstname': 'Mia',
-            'lastname': 'Davis',
-            'username': 'mia.davis',
-            'password_hash': 'wzZj4cLB1B',
-            'dob': '15-01-1991',
-            'gender': 'female',
-            'is confirmed': 1,
-            'created_at': '22-03-2020',
-            'phone_number': '+1-555-678-9012',
-            'email': 'mia.davis@example.com',
-            'profile_picture': ''
-        },
+                'id': 13,
+                'bio': (
+                    'Nature lover and hiker. '
+                    'Exploring the beauty of the great outdoors.'
+                ),
+                'firstname': 'Olivia',
+                'lastname': 'Brown',
+                'username': 'olivia.brown',
+                'password_hash': 'wzZjZdL4B1',
+                'dob': '20-06-1985',
+                'gender': 'female',
+                'is_confirmed': 1,
+                'created_at': '18-07-2019',
+                'phone_number': '+1-555-234-5678',
+                'email': 'olivia.brown@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 15,
-            'bio': 'Gamer and Twitch streamer. Streaming epic gaming adventures to the world.',
-            'firstname': 'Chloe',
-            'lastname': 'Wilson',
-            'username': 'chloe.wilson',
-            'password_hash': 'wzZj4cLB1B',
-            'dob': '18-04-1993',
-            'gender': 'female',
-            'is confirmed': 1,
-            'created_at': '19-10-2018',
-            'phone_number': '+1-555-789-0123',
-            'email': 'chloe.wilson@example.com',
-            'profile_picture': ''
-        },
+                'id': 14,
+                'bio': (
+                    'Foodie and culinary artist. '
+                    'Crafting delicious dishes that satisfy the palate.'
+                ),
+                'firstname': 'Mia',
+                'lastname': 'Davis',
+                'username': 'mia.davis',
+                'password_hash': 'wzZj4cLB1B',
+                'dob': '15-01-1991',
+                'gender': 'female',
+                'is_confirmed': 1,
+                'created_at': '22-03-2020',
+                'phone_number': '+1-555-678-9012',
+                'email': 'mia.davis@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 16,
-            'bio': 'Fitness enthusiast and yoga instructor. Spreading health and wellness.',
-            'firstname': 'Ava',
-            'lastname': 'Martinez',
-            'username': 'ava.martinez',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '12-03-1987',
-            'gender': 'female',
-            'is confirmed': 1,
-            'created_at': '15-09-2019',
-            'phone_number': '+1-555-345-6789',
-            'email': 'ava.martinez@example.com',
-            'profile_picture': ''
-        },
+                'id': 15,
+                'bio': (
+                    'Gamer and Twitch streamer. '
+                    'Streaming epic gaming adventures to the world.'
+                ),
+                'firstname': 'Chloe',
+                'lastname': 'Wilson',
+                'username': 'chloe.wilson',
+                'password_hash': 'wzZj4cLB1B',
+                'dob': '18-04-1993',
+                'gender': 'female',
+                'is_confirmed': 1,
+                'created_at': '19-10-2018',
+                'phone_number': '+1-555-789-0123',
+                'email': 'chloe.wilson@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 17,
-            'bio': 'Bookworm and literature enthusiast. Exploring new worlds through books.',
-            'firstname': 'Lily',
-            'lastname': 'Harris',
-            'username': 'lily.harris',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '08-02-1994',
-            'gender': 'female',
-            'is confirmed': 1,
-            'created_at': '20-11-2020',
-            'phone_number': '+1-555-123-4567',
-            'email': 'lily.harris@example.com',
-            'profile_picture': ''
-        },
+                'id': 16,
+                'bio': (
+                    'Fitness enthusiast and yoga instructor. '
+                    'Spreading health and wellness.'
+                ),
+                'firstname': 'Ava',
+                'lastname': 'Martinez',
+                'username': 'ava.martinez',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '12-03-1987',
+                'gender': 'female',
+                'is_confirmed': 1,
+                'created_at': '15-09-2019',
+                'phone_number': '+1-555-345-6789',
+                'email': 'ava.martinez@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 18,
-            'bio': 'Art lover and painter. Creating colorful and imaginative artwork.',
-            'firstname': 'Sophia',
-            'lastname': 'Thomas',
-            'username': 'sophia.thomas',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '29-07-1992',
-            'gender': 'female',
-            'is confirmed': 1,
-            'created_at': '25-12-2019',
-            'phone_number': '+1-555-234-5678',
-            'email': 'sophia.thomas@example.com',
-            'profile_picture': ''
-        },
+                'id': 17,
+                'bio': (
+                    'Bookworm and literature enthusiast. '
+                    'Exploring new worlds through books.'
+                ),
+                'firstname': 'Lily',
+                'lastname': 'Harris',
+                'username': 'lily.harris',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '08-02-1994',
+                'gender': 'female',
+                'is_confirmed': 1,
+                'created_at': '20-11-2020',
+                'phone_number': '+1-555-123-4567',
+                'email': 'lily.harris@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 19,
-            'bio': 'Animal lover and volunteer at the local shelter. Advocating for furry friends.',
-            'firstname': 'Olivia',
-            'lastname': 'Miller',
-            'username': 'olivia.miller',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '11-05-1993',
-            'gender': 'female',
-            'is confirmed': 1,
-            'created_at': '18-08-2019',
-            'phone_number': '+1-555-678-9012',
-            'email': 'olivia.miller@example.com',
-            'profile_picture': ''
-        },
+                'id': 18,
+                'bio': (
+                    'Art lover and painter. '
+                    'Creating colorful and imaginative artwork.'
+                ),
+                'firstname': 'Sophia',
+                'lastname': 'Thomas',
+                'username': 'sophia.thomas',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '29-07-1992',
+                'gender': 'female',
+                'is_confirmed': 1,
+                'created_at': '25-12-2019',
+                'phone_number': '+1-555-234-5678',
+                'email': 'sophia.thomas@example.com',
+                'profile_picture': ''
+            },
             {
-            'id': 20,
-            'bio': 'Tech geek and coding enthusiast. Building the future one line of code at a time.',
-            'firstname': 'Mia',
-            'lastname': 'Taylor',
-            'username': 'mia.taylor',
-            'password_hash': 'wzZjZ4cLB1B',
-            'dob': '05-12-1990',
-            'gender': 'female',
-            'is confirmed': 1,
-            'created_at': '22-06-2020',
-            'phone_number': '+1-555-890-1234',
-            'email': 'mia.taylor@example.com',
-            'profile_picture': ''
-        }]
+                'id': 19,
+                'bio': (
+                    'Animal lover and volunteer at the local shelter. '
+                    'Advocating for furry friends.'
+                ),
+                'firstname': 'Olivia',
+                'lastname': 'Miller',
+                'username': 'olivia.miller',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '11-05-1993',
+                'gender': 'female',
+                'is_confirmed': 1,
+                'created_at': '18-08-2019',
+                'phone_number': '+1-555-678-9012',
+                'email': 'olivia.miller@example.com',
+                'profile_picture': ''
+            },
+            {
+                'id': 20,
+                'bio': (
+                    'Tech geek and coding enthusiast. '
+                    'Building the future one line of code at a time.'
+                ),
+                'firstname': 'Mia',
+                'lastname': 'Taylor',
+                'username': 'mia.taylor',
+                'password_hash': 'wzZjZ4cLB1B',
+                'dob': '05-12-1990',
+                'gender': 'female',
+                'is_confirmed': 1,
+                'created_at': '22-06-2020',
+                'phone_number': '+1-555-890-1234',
+                'email': 'mia.taylor@example.com',
+                'profile_picture': ''
+            }
+        ]
 
         picture_dir = os.getcwd() + '/static/profilepics/'
         profile_pictures = []
@@ -528,5 +593,4 @@ class dbhelper():
             'tag_name': 'reading'
         }]
 
-        result = hobbiescollection.insert_many(hobbies)                             
-
+        result = hobbiescollection.insert_many(hobbies)
