@@ -1,13 +1,12 @@
-{% extends "layouts/settings-layout.html" %}
-{% set page_title = "Soulmate - Settings"%} 
-{% block title %}{{page_title}}{%endblock %}
-{% block content %}
+{% extends "layouts/settings-layout.html" %} {% set page_title = "Soulmate -
+Settings"%} {% block title %}{{page_title}}{%endblock %} {% block content %}
 
 <div>
   <div class="xl:pl-72">
     <main>
       <header class="border-b border-white/5">
         <!-- Secondary navigation -->
+
         <nav class="flex overflow-x-auto py-4">
           <ul
             class="flex min-w-full flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8"
@@ -41,6 +40,7 @@
       </header>
 
       <!-- Settings forms -->
+
       <div class="divide-y divide-white/5">
         <div
           class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8"
@@ -64,7 +64,7 @@
                   src="{% if user.profile_picture %}data:image/png;base64,{{ user.profile_picture }}{% else %}https://placehold.co/80x80{% endif %}"
                   alt="Avatar Picture"
                   class="h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover"
-                >
+                />
                 <div>
                   <input
                     type="file"
@@ -72,13 +72,13 @@
                     accept="image/*"
                     onchange="saveimage(event)"
                     style="display: none"
-                  >
+                  />
                   <input
                     type="hidden"
                     value="{{user.profile_picture}}"
                     id="base64Image"
                     name="base64_image"
-                  >
+                  />
                   <button
                     type="button"
                     onclick="openFilePicker()"
@@ -106,7 +106,7 @@
                     autocomplete="given-name"
                     value="{{user.firstname}}"
                     class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  >
+                  />
                 </div>
               </div>
 
@@ -124,7 +124,7 @@
                     autocomplete="family-name"
                     value="{{user.lastname}}"
                     class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  >
+                  />
                 </div>
               </div>
 
@@ -142,7 +142,7 @@
                     autocomplete="bday"
                     value="{{user.dob}}"
                     class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  >
+                  />
                 </div>
               </div>
 
@@ -159,7 +159,9 @@
                     name="bio"
                     rows="4"
                     class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  >{{user.bio}}</textarea>
+                  >
+{{user.bio}}</textarea
+                  >
                 </div>
               </div>
 
@@ -179,7 +181,7 @@
                     value="{{user.email}}"
                     readonly
                     class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  >
+                  />
                 </div>
               </div>
 
@@ -202,7 +204,7 @@
                       readonly
                       class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
                       placeholder="janesmith"
-                    >
+                    />
                   </div>
                 </div>
               </div>
@@ -219,6 +221,8 @@
           </form>
         </div>
 
+        <!-- Change Password -->
+
         <div
           class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8"
         >
@@ -231,10 +235,11 @@
             </p>
           </div>
 
-          <form class="md:col-span-2"
-          action="{{ url_for('settings_bp.updatepassword')}}"
-          method="POST">
-
+          <form
+            class="md:col-span-2"
+            action="{{ url_for('settings_bp.updatepassword')}}"
+            method="POST"
+          >
             <div
               class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6"
             >
@@ -251,7 +256,7 @@
                     type="password"
                     autocomplete="current-password"
                     class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  >
+                  />
                 </div>
               </div>
 
@@ -268,7 +273,7 @@
                     type="password"
                     autocomplete="new-password"
                     class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  >
+                  />
                 </div>
               </div>
 
@@ -285,7 +290,7 @@
                     type="password"
                     autocomplete="new-password"
                     class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                  >
+                  />
                 </div>
               </div>
             </div>
@@ -300,6 +305,8 @@
             </div>
           </form>
         </div>
+
+        <!-- Delete account -->
 
         <div
           class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8"
