@@ -11,11 +11,10 @@ from flask import (
 
 from dbhelper import dbhelper
 
-# Initialize the database helper
 db = dbhelper()
 
-# Create a blueprint for the 'login' route
 login_bp = Blueprint('login_bp', __name__)
+
 
 @login_bp.route("/", methods=["GET", "POST"])
 def login():
@@ -42,6 +41,7 @@ def login():
             return render_template("login.html", message=message)
 
     return render_template("login.html")
+
 
 @login_bp.route('/logout')
 def logout():
