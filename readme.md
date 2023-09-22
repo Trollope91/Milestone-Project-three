@@ -2,7 +2,7 @@
 
 ## Code institute milestone project three
 
-![Project_image](app/static/documentation/project-preview.png)
+![Project_image](app/static/documentation/project-preview.jpg)
 
 Welcome to Soul Mate - the premier dating app designed to help you find meaningful connections and lasting love. Whether you're looking for a serious relationship, a fun date, or simply a new friend, Soul Mate is here to make the process enjoyable and successful.
 
