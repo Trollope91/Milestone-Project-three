@@ -26,7 +26,6 @@ def dashboard():
     """
     logged_in_user = db.getuserbyusername(session.get('username'))
 
-    # Check if required profile settings are missing
     if not all(logged_in_user.get(key) for key in ['firstname', 'lastname',
                                                    'profile_picture', 'dob']):
         message = {
@@ -40,7 +39,6 @@ def dashboard():
         session['message'] = message
         return redirect(url_for('settings_bp.settings'))
 
-    # Retrieve all users and select one at random
     user = db.getAllUsers()
     user = random.choice(user)
 
@@ -52,7 +50,6 @@ def dashboard():
     user['age'] = age
     session["displayeduserid"] = user["id"]
 
-    # Create a response with no caching
     response = make_response(render_template(
         "dashboard.html", selecteditem="dashboard", user=user))
 
