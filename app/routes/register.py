@@ -18,7 +18,14 @@ db = dbhelper()
 
 register_bp = Blueprint('register_bp', __name__)
 
-strong_password_pattern = r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,}$"
+strong_password_pattern = (
+    r"^(?=.*[A-Z])"  # At least one uppercase letter [A-Z]
+    r"(?=.*[a-z])"   # At least one lowercase letter [a-z]
+    r"(?=.*\d)"      # At least one digit [0-9]
+    r"(?=.*[@#$%^&+=!])"  # At least one special character [@#$%^&+=!]
+    r".{8,}$"         # Minimum length of 8 characters
+)
+
 
 @register_bp.route("/register", methods=["GET", "POST"])
 def register():
@@ -36,7 +43,10 @@ def register():
             return render_template("register.html", error=error)
 
         if not re.match(strong_password_pattern, password):
-            error = "Password is not strong enough. It should contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long."
+            error = """Password is not strong enough.
+            It should contain at least one uppercase letter,
+            one lowercase letter, one digit, one special character,
+            and be at least 8 characters long."""
             return render_template("register.html", error=error)
 
         hashed_password = generate_password_hash(password, method='sha256')
