@@ -6,7 +6,7 @@
 
 Welcome to Soul Mate - the premier dating app designed to help you find meaningful connections and lasting love. Whether you're looking for a serious relationship, a fun date, or simply a new friend, Soul Mate is here to make the process enjoyable and successful.
 
-## [View Soulmate in xxxxx]()
+## [View Soulmate on Heroku](https://soulmate-0737784650f0.herokuapp.com/)
 
 Features
 
@@ -17,10 +17,16 @@ Features
    Add a photo, Change your bio name and age in the settings reflected in your profile.
 
 3. Dashboard 
-   Find other users signed up on the soul mate data base 
+   Find other users signed up on the soul mate database 
 
 4. Favourites
-   Add profiles from the dashboard to your favourites and find their full profiles instantly 
+   Add profiles from the dashboard to your favourites and find their full profiles instantly
+
+5. Settings
+   Customise your profile add a picture and details about yourself to your account
+
+6. Search functionality
+   Search through your favourite by specific parameters be it name or bio 
 
 ### User Stories
 
@@ -47,11 +53,11 @@ Cretate a functional and high end dating app with all the features people have c
 
 ## Structure of the website
 
-Soulmate comprises of a login screen and a Registration page that leads to a dashboards containing multiple features such as a settings page that allows the user to alter their personal details as well as a favourites page that contains the liked individuals from the datatbase.
+Soulmate comprises of a login screen and a Registration page that leads to a dashboards containing multiple features such as a settings page that allows the user to alter their personal details as well as a favourites page that contains the liked individuals from the database.
 
 ## Wireframes
 
-I used the balsamiq programme to create the initial wireframes.
+I used balsamiq to create the initial wireframes.
 
 ### Login Wireframes
 
@@ -85,7 +91,7 @@ I used the balsamiq programme to create the initial wireframes.
 
 ### Error Wireframes
 
-I chose a non-relational database for my dating app for three key reasons, rooted in the fundamental differences between relational and non-relational databases.
+I chose a non-relational database for my dating app for this reason, rooted in the fundamental differences between relational and non-relational databases.
 
 dating apps deal with diverse and unstructured user-generated content, which often doesn't fit neatly into the structured tables of relational databases. Non-relational databases offer the flexibility to adapt to changing data formats and requirements without the constraints of fixed schemas, making them better suited to handle this variability.
 
@@ -145,6 +151,7 @@ The website has the below features:
 
 * The users favourited accounts will be kept in this page
 * The user can remove accounts from this page by clicking on the unfavourite button
+* The favourite page contains a search bar to search through your current favourites
 
 ![project images](app/static/documentation/favourite-desktop.png)
 ![project images](app/static/documentation/favourite-tablet-mobile.png)
@@ -170,7 +177,7 @@ The website has the below features:
 
 * Filters to specificy unique aspects of other users they which to find
 * A messaging service for users to communicate
-
+* Text compression to help performance
 # Technologies used
 
 ### HTML5
@@ -255,6 +262,8 @@ The website has the below features:
       >The user is able to upload and save a profile picture from the settings page
 -   want to be able to add users to my favourites for future browsing
       >A favourites button is available under all other accounts allowing the user to move it into a personal favourites
+-   be able to sort through my list of favourites
+      > A search bar has been added in order to filter through the list of favourites for specifics regarding the names and bio's
 
 ## Issues found during site development
 
@@ -271,9 +280,9 @@ Initially after uploading the dummy data to the database the profile images were
 
 #
 
-game tiles appeared to be blown out of proportion on actual device but was rectified by updating old built in browsers and using more modern borwsers like chrome & fire fox to be able to understand more moder css stylings like scale etc.
+An issue arose when logging out of the app whereby going back would put the user back onto the dashboard despite being logged out, this was correcte by use of a unique function that redirects the user back to the login page if the have logged out based on the presence of their username in the session
 
-![testing_issue_3](./assets/documentation/blown-up.png)
+![testing_issue_3](app/static/documentation/logout-fix.png)
 #
 
 
@@ -290,6 +299,23 @@ I performed various exercises on the site attempting to break the order of movem
 
 ## Automated testing
 
+## Performance testing
+I run [Lighthouse](https://developers.google.com/web/tools/lighthouse/) tool to check performance of the website.
+
+![performance test 1](app/static/documentation/performance-login-desktop.png)
+![performance test 2](app/static/documentation/performance-login-mobile.png)
+![performance test 3](app/static/documentation/performance-register-desktop.png)
+![performance test 4](app/static/documentation/performance-register-mobile.png)
+![performance test 5](app/static/documentation/performance-dashboard-desktop.png)
+![performance test 6](app/static/documentation/performance-dashboard-mobile.png)
+![performance test 7](app/static/documentation/performance-favourites-desktop.png)
+![performance test 8](app/static/documentation/performance-favourites-mobile.png)
+![performance test 7](app/static/documentation/performance-settings-desktop.png)
+![performance test 8](app/static/documentation/performance-settings-mobile.png)
+
+
+
+
 ## Code Validation
  At the and of the project I used two websites to validate a code
  
@@ -297,10 +323,7 @@ I performed various exercises on the site attempting to break the order of movem
   ![Css-validation](app/static/documentation/css-validation.png)
   #
 
-   * [Wave](https://wave.webaim.org/report#/https://trollope91.github.io/Milestone-Project-2/) to assess page accessibility and error check
-  ![Wave-validation]()
 
-  #
  * [Nu Html Checker](https://validator.w3.org/) to test HTML
 
   ![Html-validation-login](app/static/documentation/login-html.png)
@@ -326,7 +349,7 @@ https://github.com/Trollope91/Milestone-Project-three
 
 ## Live link
 
-
+https://soulmate-0737784650f0.herokuapp.com/
 
 ## Copying the repository
 
@@ -353,3 +376,21 @@ ___
     * [w3schools.com](https://www.w3schools.com)
 
     * [css-tricks.com](https://css-tricks.com/)
+
+    * [python](https://www.python.org/)
+
+    * [flask](https://flask.palletsprojects.com/en/2.3.x/)
+
+    * [Stack Overflow](https://stackoverflow.com/)
+
+    * [Tailwind CSS](https://tailwindcss.com/)
+
+    * [mongodb](https://www.mongodb.com/)
+
+    * [Selenium](https://www.selenium.dev/)
+
+    * [Heroicons](https://heroicons.com/)
+
+    * [CI Python Linter](https://pep8ci.herokuapp.com/#)
+
+    
